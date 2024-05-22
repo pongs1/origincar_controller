@@ -1,0 +1,15 @@
+/CORE
+/FreeRTOS
+/FWLIB
+/OBJ
+/SYSTEM
+/USER/.*
+/USER/DebugConfig
+/USER/EventRecorderStub.scvd
+/USER/JLinkSettings.ini
+/USER/OriginCar.uvguix.12459
+/USER/OriginCar.uvguix.15297
+/USER/OriginCar.uvoptx
+/USER/OriginCar.uvprojx
+/USER/USER.code-workspace
+/keilkilll.bat
