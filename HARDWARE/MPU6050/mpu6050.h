@@ -373,8 +373,8 @@ void MPU6050_getlastMotion6(int16_t* ax, int16_t* ay,
 		int16_t* az, int16_t* gx, int16_t* gy, int16_t* gz);
 uint8_t MPU6050_getDeviceID(void); //读取MPU6050的ID
 void MPU6050_InitGyro_Offset(void);//初始化陀螺仪偏置
-void DMP_Init(void);
-void Read_DMP(void);
+// void DMP_Init(void);
+// void Read_DMP(void);
 int Read_Temperature(void);
 void MPU6050_task(void *pvParameters);
 unsigned char MPU6050_Set_LPF(u16 lpf);

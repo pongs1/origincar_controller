@@ -1,6 +1,7 @@
 #include "MPU6050.h"
 #include "I2C.h"
 #include "usart.h"
+
 #define PRINT_ACCEL     (0x01)
 #define PRINT_GYRO      (0x02)
 #define PRINT_QUAT      (0x04)
@@ -346,36 +347,36 @@ Output  : none
 入口参数：无
 返回  值：无
 **************************************************************************/
-//void DMP_Init(void)
-//{ 
+// void DMP_Init(void)
+// { 
 //   u8 temp[1]={0};
 //   i2cRead(0x68,0x75,1,temp);
-//	 printf("mpu_set_sensor complete ......\r\n");
-//	if(temp[0]!=0x68)NVIC_SystemReset();
-//	if(!mpu_init())
+// 	 printf("mpu_set_sensor complete ......\r\n");
+// 	if(temp[0]!=0x68)NVIC_SystemReset();
+// 	if(!mpu_init())
 //  {
-//	  if(!mpu_set_sensors(INV_XYZ_GYRO | INV_XYZ_ACCEL))
-//	  	 printf("mpu_set_sensor complete ......\r\n");
-//	  if(!mpu_configure_fifo(INV_XYZ_GYRO | INV_XYZ_ACCEL))
-//	  	 printf("mpu_configure_fifo complete ......\r\n");
-//	  if(!mpu_set_sample_rate(DEFAULT_MPU_HZ))
-//	  	 printf("mpu_set_sample_rate complete ......\r\n");
-//	  if(!dmp_load_motion_driver_firmware())
-//	  	printf("dmp_load_motion_driver_firmware complete ......\r\n");
-//	  if(!dmp_set_orientation(inv_orientation_matrix_to_scalar(gyro_orientation)))
-//	  	 printf("dmp_set_orientation complete ......\r\n");
-//	  if(!dmp_enable_feature(DMP_FEATURE_6X_LP_QUAT | DMP_FEATURE_TAP |
-//	      DMP_FEATURE_ANDROID_ORIENT | DMP_FEATURE_SEND_RAW_ACCEL | DMP_FEATURE_SEND_CAL_GYRO |
-//	      DMP_FEATURE_GYRO_CAL))
-//	  	 printf("dmp_enable_feature complete ......\r\n");
-//	  if(!dmp_set_fifo_rate(DEFAULT_MPU_HZ))
-//	  	 printf("dmp_set_fifo_rate complete ......\r\n");
-//	  run_self_test();
-//		if(!mpu_set_dmp_state(1))
-//			 printf("mpu_set_dmp_state complete ......\r\n");
+// 	  if(!mpu_set_sensors(INV_XYZ_GYRO | INV_XYZ_ACCEL))
+// 	  	 printf("mpu_set_sensor complete ......\r\n");
+// 	  if(!mpu_configure_fifo(INV_XYZ_GYRO | INV_XYZ_ACCEL))
+// 	  	 printf("mpu_configure_fifo complete ......\r\n");
+// 	  if(!mpu_set_sample_rate(DEFAULT_MPU_HZ))
+// 	  	 printf("mpu_set_sample_rate complete ......\r\n");
+// 	  if(!dmp_load_motion_driver_firmware())
+// 	  	printf("dmp_load_motion_driver_firmware complete ......\r\n");
+// 	  if(!dmp_set_orientation(inv_orientation_matrix_to_scalar(gyro_orientation)))
+// 	  	 printf("dmp_set_orientation complete ......\r\n");
+// 	  if(!dmp_enable_feature(DMP_FEATURE_6X_LP_QUAT | DMP_FEATURE_TAP |
+// 	      DMP_FEATURE_ANDROID_ORIENT | DMP_FEATURE_SEND_RAW_ACCEL | DMP_FEATURE_SEND_CAL_GYRO |
+// 	      DMP_FEATURE_GYRO_CAL))
+// 	  	 printf("dmp_enable_feature complete ......\r\n");
+// 	  if(!dmp_set_fifo_rate(DEFAULT_MPU_HZ))
+// 	  	 printf("dmp_set_fifo_rate complete ......\r\n");
+// 	  run_self_test();
+// 		if(!mpu_set_dmp_state(1))
+// 			 printf("mpu_set_dmp_state complete ......\r\n");
 //  }
 
-//}
+// }
 /**************************************************************************
 Function: Read the attitude information of DMP in mpu6050
 Input   : none
@@ -384,25 +385,25 @@ Output  : none
 入口参数：无
 返回  值：无
 **************************************************************************/
-//void Read_DMP(void)
-//{	
-//	  unsigned long sensor_timestamp;
-//		unsigned char more;
-//		long quat[4];
+// void Read_DMP(void)
+// {	
+// 	  unsigned long sensor_timestamp;
+// 		unsigned char more;
+// 		long quat[4];
 
-//				dmp_read_fifo(gyro, accel, quat, &sensor_timestamp, &sensors, &more);		//读取DMP数据
-//				if (sensors & INV_WXYZ_QUAT )
-//				{    
-//					 q0=quat[0] / q30;
-//					 q1=quat[1] / q30;
-//					 q2=quat[2] / q30;
-//					 q3=quat[3] / q30; 		//四元数
-//					 Roll = asin(-2 * q1 * q3 + 2 * q0* q2)* 57.3; 	//计算出横滚角
-//					 Pitch = atan2(2 * q2 * q3 + 2 * q0 * q1, -2 * q1 * q1 - 2 * q2* q2 + 1)* 57.3; // 计算出俯仰角
-//					 Yaw = atan2(2*(q1*q2 + q0*q3),q0*q0+q1*q1-q2*q2-q3*q3) * 57.3;	 //计算出偏航角
-//				}
+// 				dmp_read_fifo(gyro, accel, quat, &sensor_timestamp, &sensors, &more);		//读取DMP数据
+// 				if (sensors & INV_WXYZ_QUAT )
+// 				{    
+// 					 q0=quat[0] / q30;
+// 					 q1=quat[1] / q30;
+// 					 q2=quat[2] / q30;
+// 					 q3=quat[3] / q30; 		//四元数
+// 					//  Roll = asin(-2 * q1 * q3 + 2 * q0* q2)* 57.3; 	//计算出横滚角
+// 					//  Pitch = atan2(2 * q2 * q3 + 2 * q0 * q1, -2 * q1 * q1 - 2 * q2* q2 + 1)* 57.3; // 计算出俯仰角
+// 					 Yaw = atan2(2*(q1*q2 + q0*q3),q0*q0+q1*q1-q2*q2-q3*q3) * 57.3;	 //计算出偏航角
+// 				}
 
-//}
+// }
 /**************************************************************************
 Function: Read mpu6050 built-in temperature sensor data
 Input   : none
