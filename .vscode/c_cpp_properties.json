@@ -1,0 +1,33 @@
+{
+    "configurations": [
+        {
+            "name": "Win32",
+            "includePath": [
+                "${workspaceFolder}/**",
+                "CORE",
+                "SYSTEM\\delay",
+                "SYSTEM\\sys",
+                "SYSTEM\\usart",
+                "USER",
+                "FWLIB\\inc",
+                "FreeRTOS\\include",
+                "FreeRTOS\\portable\\RVDS\\ARM_CM4F",
+                "BALANCE",
+                "HARDWARE",
+                "HARDWARE\\MPU6050",
+                "FWLIB\\src",
+                "FreeRTOS",
+                "FreeRTOS\\portable\\MemMang"
+            ],
+            "defines": [
+                "_DEBUG",
+                "UNICODE",
+                "_UNICODE"
+            ],
+            "cStandard": "c17",
+            "cppStandard": "gnu++14",
+            "intelliSenseMode": "clang-arm"
+        }
+    ],
+    "version": 4
+}
