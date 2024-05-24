@@ -355,7 +355,7 @@
 #define MPU6050_WHO_AM_I_LENGTH     6
 
 #define MPU6050_TASK_PRIO		3    
-#define MPU6050_STK_SIZE 		256  
+#define MPU6050_STK_SIZE 		512  
 
 extern	short gyro[3], accel[3];
 extern int Deviation_Count;

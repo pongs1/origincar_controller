@@ -187,7 +187,7 @@ void systemInit(void)
   //MPU6050 初始化，用于读取小车三轴姿态、三轴角速度、三轴加速度信息
 	mpu_init;
 	MPU6050_DMP_Init;
-	// MPU6050_initialize();
+	MPU6050_initialize();
 
 	// Initialize the hardware interface to the PS2 controller
 	// 初始化与PS2手柄连接的硬件接口
