@@ -15,6 +15,7 @@
 #define FLASH_SIZE      (512)
 #define FLASH_MEM_START ((void*)0x1800)
 // #define q30  1073741824.0f
+
 short gyro[3], accel[3], sensors;
 //ÁãµãÆ¯ÒÆ¼ÆÊý
 int Deviation_Count;
