@@ -11,7 +11,6 @@
 #define GYRO_ON         (0x02)
 #define MOTION          (0)
 #define NO_MOTION       (1)
-#define DEFAULT_MPU_HZ  (200)
 #define FLASH_SIZE      (512)
 #define FLASH_MEM_START ((void*)0x1800)
 // #define q30  1073741824.0f
@@ -23,6 +22,7 @@ int Deviation_Count;
 //ÍÓÂÝÒÇ¾²²î£¬Ô­Ê¼Êý¾Ý
 short Deviation_gyro[3],Original_gyro[3];  
 short Deviation_accel[3],Original_accel[3];
+//Æ«º½½Çyaw
 float yaw;
 // float q0=1.0f,q1=0.0f,q2=0.0f,q3=0.0f;
 //static signed char gyro_orientation[9] = {-1, 0, 0,

@@ -91,15 +91,15 @@ void oled_show(void)
 			case Tank_Car:      OLED_ShowString(0,0,"Tank"); break; 
 		 }
 		 
-		 if(Car_Mode==Mec_Car||Car_Mode==Omni_Car)
-		 {
-			 //The Mec_car and omni_car show Z-axis angular velocity
-			 //麦轮、全向轮小车显示Z轴角速度
-			 OLED_ShowString(55,0,"GZ");
-			 if( gyro[2]<0)  OLED_ShowString(80,0,"-"),OLED_ShowNumber(90,0,-gyro[2],5,12);
-			 else            OLED_ShowString(80,0,"+"),OLED_ShowNumber(90,0, gyro[2],5,12);		
-		 }
-		 else if(Car_Mode==Akm_Car||Car_Mode==Diff_Car||Car_Mode==FourWheel_Car||Car_Mode==Tank_Car)
+		//  if(Car_Mode==Mec_Car||Car_Mode==Omni_Car)
+		//  {
+		// 	 //The Mec_car and omni_car show Z-axis angular velocity
+		// 	 //麦轮、全向轮小车显示Z轴角速度
+		// 	 OLED_ShowString(55,0,"GZ");
+		// 	 if( gyro[2]<0)  OLED_ShowString(80,0,"-"),OLED_ShowNumber(90,0,-gyro[2],5,12);
+		// 	 else            OLED_ShowString(80,0,"+"),OLED_ShowNumber(90,0, gyro[2],5,12);		
+		//  }
+		if(Car_Mode==Akm_Car||Car_Mode==Diff_Car||Car_Mode==FourWheel_Car||Car_Mode==Tank_Car)
 		 {
 			 //Akm_Car, Diff_Car, FourWheel_Car and Tank_Car Displays gyroscope zero
 			 //阿克曼、差速、四驱、履带车显示陀螺仪零点
@@ -113,22 +113,22 @@ void oled_show(void)
 
 		 //The second line of the display displays the content//
 		 //显示屏第2行显示内容//
-		 if(Car_Mode==Mec_Car||Car_Mode==Omni_Car||Car_Mode==FourWheel_Car)
-		 {
-			//Mec_Car, Omni_Car and FourWheel_Car Display the target speed and current actual speed of motor A
-			//麦轮、全向轮、四驱车显示电机A的目标速度和当前实际速度
-			OLED_ShowString(0,10,"A");
-			if( MOTOR_A.Target<0)	OLED_ShowString(15,10,"-"),
-														OLED_ShowNumber(20,10,-MOTOR_A.Target*1000,5,12);
-			else                 	OLED_ShowString(15,10,"+"),
-														OLED_ShowNumber(20,10, MOTOR_A.Target*1000,5,12); 
+		//  if(Car_Mode==Mec_Car||Car_Mode==Omni_Car||Car_Mode==FourWheel_Car)
+		//  {
+		// 	//Mec_Car, Omni_Car and FourWheel_Car Display the target speed and current actual speed of motor A
+		// 	//麦轮、全向轮、四驱车显示电机A的目标速度和当前实际速度
+		// 	OLED_ShowString(0,10,"A");
+		// 	if( MOTOR_A.Target<0)	OLED_ShowString(15,10,"-"),
+		// 												OLED_ShowNumber(20,10,-MOTOR_A.Target*1000,5,12);
+		// 	else                 	OLED_ShowString(15,10,"+"),
+		// 												OLED_ShowNumber(20,10, MOTOR_A.Target*1000,5,12); 
 			
-			if( MOTOR_A.Encoder<0)OLED_ShowString(60,10,"-"),
-														OLED_ShowNumber(75,10,-MOTOR_A.Encoder*1000,5,12);
-			else                 	OLED_ShowString(60,10,"+"),
-														OLED_ShowNumber(75,10, MOTOR_A.Encoder*1000,5,12);
-		 }
-		 else if(Car_Mode==Akm_Car||Car_Mode==Diff_Car||Car_Mode==Tank_Car)
+		// 	if( MOTOR_A.Encoder<0)OLED_ShowString(60,10,"-"),
+		// 												OLED_ShowNumber(75,10,-MOTOR_A.Encoder*1000,5,12);
+		// 	else                 	OLED_ShowString(60,10,"+"),
+		// 												OLED_ShowNumber(75,10, MOTOR_A.Encoder*1000,5,12);
+		//  }
+		 if(Car_Mode==Akm_Car||Car_Mode==Diff_Car||Car_Mode==Tank_Car)
 		 {
 			 //The Akm_Car, Diff_Car and Tank_Car show Z-axis angular velocity
 			 //阿克曼、差速、坦克小车显示Z轴角速度
@@ -143,35 +143,35 @@ void oled_show(void)
 		 
 		 //Lines 3 and 4 of the display screen display content//
 		 //显示屏第3、4行显示内容//
-		 if(Car_Mode==Mec_Car||Car_Mode==Omni_Car||Car_Mode==FourWheel_Car)
-		 {
-			//Mec_Car, Omni_Car and FourWheel_Car Display the target speed and current actual speed of motor B
-			//麦轮、全向轮、四驱车显示电机B的目标速度和当前实际速度
-			OLED_ShowString(0,20,"B");		
-			if( MOTOR_B.Target<0)	OLED_ShowString(15,20,"-"),
-														OLED_ShowNumber(20,20,-MOTOR_B.Target*1000,5,12);
-			else                 	OLED_ShowString(15,20,"+"),
-														OLED_ShowNumber(20,20, MOTOR_B.Target*1000,5,12); 
+		//  if(Car_Mode==Mec_Car||Car_Mode==Omni_Car||Car_Mode==FourWheel_Car)
+		//  {
+		// 	//Mec_Car, Omni_Car and FourWheel_Car Display the target speed and current actual speed of motor B
+		// 	//麦轮、全向轮、四驱车显示电机B的目标速度和当前实际速度
+		// 	OLED_ShowString(0,20,"B");		
+		// 	if( MOTOR_B.Target<0)	OLED_ShowString(15,20,"-"),
+		// 												OLED_ShowNumber(20,20,-MOTOR_B.Target*1000,5,12);
+		// 	else                 	OLED_ShowString(15,20,"+"),
+		// 												OLED_ShowNumber(20,20, MOTOR_B.Target*1000,5,12); 
 			
-			if( MOTOR_B.Encoder<0)OLED_ShowString(60,20,"-"),
-														OLED_ShowNumber(75,20,-MOTOR_B.Encoder*1000,5,12);
-			else                 	OLED_ShowString(60,20,"+"),
-														OLED_ShowNumber(75,20, MOTOR_B.Encoder*1000,5,12);
+		// 	if( MOTOR_B.Encoder<0)OLED_ShowString(60,20,"-"),
+		// 												OLED_ShowNumber(75,20,-MOTOR_B.Encoder*1000,5,12);
+		// 	else                 	OLED_ShowString(60,20,"+"),
+		// 												OLED_ShowNumber(75,20, MOTOR_B.Encoder*1000,5,12);
 			
-			//Mec_Car, Omni_Car and FourWheel_Car Display the target speed and current actual speed of motor C
-			//麦轮、全向轮、四驱车显示电机C的目标速度和当前实际速度
-			OLED_ShowString(0,30,"C");
-			if( MOTOR_C.Target<0)	OLED_ShowString(15,30,"-"),
-														OLED_ShowNumber(20,30,- MOTOR_C.Target*1000,5,12);
-			else                 	OLED_ShowString(15,30,"+"),
-														OLED_ShowNumber(20,30,  MOTOR_C.Target*1000,5,12); 
+		// 	//Mec_Car, Omni_Car and FourWheel_Car Display the target speed and current actual speed of motor C
+		// 	//麦轮、全向轮、四驱车显示电机C的目标速度和当前实际速度
+		// 	OLED_ShowString(0,30,"C");
+		// 	if( MOTOR_C.Target<0)	OLED_ShowString(15,30,"-"),
+		// 												OLED_ShowNumber(20,30,- MOTOR_C.Target*1000,5,12);
+		// 	else                 	OLED_ShowString(15,30,"+"),
+		// 												OLED_ShowNumber(20,30,  MOTOR_C.Target*1000,5,12); 
 				
-			if( MOTOR_C.Encoder<0)OLED_ShowString(60,30,"-"),
-														OLED_ShowNumber(75,30,-MOTOR_C.Encoder*1000,5,12);
-			else                 	OLED_ShowString(60,30,"+"),
-														OLED_ShowNumber(75,30, MOTOR_C.Encoder*1000,5,12);
-		 }
-		 else if(Car_Mode==Akm_Car||Car_Mode==Diff_Car||Car_Mode==Tank_Car)
+		// 	if( MOTOR_C.Encoder<0)OLED_ShowString(60,30,"-"),
+		// 												OLED_ShowNumber(75,30,-MOTOR_C.Encoder*1000,5,12);
+		// 	else                 	OLED_ShowString(60,30,"+"),
+		// 												OLED_ShowNumber(75,30, MOTOR_C.Encoder*1000,5,12);
+		//  }
+		if(Car_Mode==Akm_Car||Car_Mode==Diff_Car||Car_Mode==Tank_Car)
 		 {
 			 //Akm_Car, Diff_Car and Tank_Car Display the target speed and current actual speed of motor A
 			 //阿克曼、差速、履带车显示电机A的目标速度和当前实际速度
@@ -219,31 +219,31 @@ void oled_show(void)
 		 
 		 //Line 5 of the display displays the content//
 		 //显示屏第5行显示内容//
-		 if(Car_Mode==Mec_Car||Car_Mode==FourWheel_Car)
-		 {
-			  //Mec_Car Display the target speed and current actual speed of motor D
-				//麦轮小车显示电机D的目标速度和当前实际速度
-				OLED_ShowString(0,40,"D");
-				if( MOTOR_D.Target<0)	OLED_ShowString(15,40,"-"),
-															OLED_ShowNumber(20,40,- MOTOR_D.Target*1000,5,12);
-				else                 	OLED_ShowString(15,40,"+"),
-															OLED_ShowNumber(20,40,  MOTOR_D.Target*1000,5,12); 			
-				if( MOTOR_D.Encoder<0)	OLED_ShowString(60,40,"-"),
-															OLED_ShowNumber(75,40,-MOTOR_D.Encoder*1000,5,12);
-				else                 	OLED_ShowString(60,40,"+"),
-															OLED_ShowNumber(75,40, MOTOR_D.Encoder*1000,5,12);
-		 }
-		 else if(Car_Mode==Omni_Car)
-		 {
-			  // The Omni_car shows Z-axis angular velocity (1000 times magnification) in rad/s
-				//全向轮小车显示Z轴角速度(放大1000倍)，单位rad/s
-				OLED_ShowString(0,40,"MOVE_Z"); 			
-				if(Send_Data.Sensor_Str.X_speed<0)	OLED_ShowString(60,40,"-"),
-																						OLED_ShowNumber(75,40,-Send_Data.Sensor_Str.X_speed,5,12);
-				else                              	OLED_ShowString(60,40,"+"),
-																						OLED_ShowNumber(75,40, Send_Data.Sensor_Str.X_speed,5,12);
-		 }
-		 else if(Car_Mode==Akm_Car)
+		//  if(Car_Mode==Mec_Car||Car_Mode==FourWheel_Car)
+		//  {
+		// 	  //Mec_Car Display the target speed and current actual speed of motor D
+		// 		//麦轮小车显示电机D的目标速度和当前实际速度
+		// 		OLED_ShowString(0,40,"D");
+		// 		if( MOTOR_D.Target<0)	OLED_ShowString(15,40,"-"),
+		// 													OLED_ShowNumber(20,40,- MOTOR_D.Target*1000,5,12);
+		// 		else                 	OLED_ShowString(15,40,"+"),
+		// 													OLED_ShowNumber(20,40,  MOTOR_D.Target*1000,5,12); 			
+		// 		if( MOTOR_D.Encoder<0)	OLED_ShowString(60,40,"-"),
+		// 													OLED_ShowNumber(75,40,-MOTOR_D.Encoder*1000,5,12);
+		// 		else                 	OLED_ShowString(60,40,"+"),
+		// 													OLED_ShowNumber(75,40, MOTOR_D.Encoder*1000,5,12);
+		//  }
+		//  else if(Car_Mode==Omni_Car)
+		//  {
+		// 	  // The Omni_car shows Z-axis angular velocity (1000 times magnification) in rad/s
+		// 		//全向轮小车显示Z轴角速度(放大1000倍)，单位rad/s
+		// 		OLED_ShowString(0,40,"MOVE_Z"); 			
+		// 		if(Send_Data.Sensor_Str.X_speed<0)	OLED_ShowString(60,40,"-"),
+		// 																				OLED_ShowNumber(75,40,-Send_Data.Sensor_Str.X_speed,5,12);
+		// 		else                              	OLED_ShowString(60,40,"+"),
+		// 																				OLED_ShowNumber(75,40, Send_Data.Sensor_Str.X_speed,5,12);
+		//  }
+		if(Car_Mode==Akm_Car)
 		 {
 			  //Akm_Car displays the PWM value of the Servo
 				//阿克曼小车显示舵机的PWM的数值

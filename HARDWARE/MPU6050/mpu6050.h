@@ -363,7 +363,7 @@ extern short Deviation_gyro[3],Original_gyro[3];
 extern  short Deviation_accel[3],Original_accel[3]; 
 extern int16_t Gx_offset,Gy_offset,Gz_offset;
 extern float Acc1G_Values;
-extern float Roll,Pitch,Yaw; 
+extern float yaw; 
 //供外部调用的API
 u8 MPU6050_initialize(void); //初始化
 uint8_t MPU6050_testConnection(void); //检测MPU6050是否存在
