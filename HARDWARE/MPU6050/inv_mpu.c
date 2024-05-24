@@ -862,7 +862,7 @@ int mpu_init(void)
     st.chip_cfg.dmp_loaded = 0;
     st.chip_cfg.dmp_sample_rate = 0;
 
-    if (mpu_set_gyro_fsr(2000))
+    if (mpu_set_gyro_fsr(500))
         return -1;
     if (mpu_set_accel_fsr(2))
         return -1;
@@ -2879,7 +2879,7 @@ static signed char gyro_orientation[9] = { 1, 0, 0,//不要改
 //返回值:0,正常
 //    其他,失败
  
-void get_ms(unsigned long *time){}	
+//void get_ms(unsigned long *time){}	
  
 //mpu6050,dmp初始化
 //返回值:0,正常
@@ -2910,7 +2910,7 @@ u8 MPU6050_DMP_Init(void)
 //yaw:航向角   精度:0.1°   范围:-180.0°<---> +180.0°
 //返回值:0,正常
 //    其他,失败
-u8 MPU6050_DMP_Get_Data(float *pitch,float *roll,float *yaw)//（5MS  200HZ调用一下，给 DEFAULT_MPU_HZ 频率保持一致，或者int中断引脚读取）
+u8 MPU6050_DMP_Get_Data(/*float *pitch,float *roll,*/float *yaw)//（5MS  200HZ调用一下，给 DEFAULT_MPU_HZ 频率保持一致，或者int中断引脚读取）
 {                              //  （此处在主函数中一直调用，在中断函数里更新 频率未变）
 	float q0=1.0f,q1=0.0f,q2=0.0f,q3=0.0f;
 	unsigned long sensor_timestamp;
@@ -2935,8 +2935,8 @@ u8 MPU6050_DMP_Get_Data(float *pitch,float *roll,float *yaw)//（5MS  200HZ调用一
 		q2 = quat[2] / q30;
 		q3 = quat[3] / q30; 
 		//计算得到俯仰角/横滚角/航向角
-		*pitch = asin(-2 * q1 * q3 + 2 * q0* q2)* 57.3;	// pitch
-		*roll  = atan2(2 * q2 * q3 + 2 * q0 * q1, -2 * q1 * q1 - 2 * q2* q2 + 1)* 57.3;	// roll
+		// *pitch = asin(-2 * q1 * q3 + 2 * q0* q2)* 57.3;	// pitch
+		// *roll  = atan2(2 * q2 * q3 + 2 * q0 * q1, -2 * q1 * q1 - 2 * q2* q2 + 1)* 57.3;	// roll
 		*yaw   = atan2(2*(q1*q2 + q0*q3),q0*q0+q1*q1-q2*q2-q3*q3) * 57.3;	//yaw
 	}else return 2;
 	return 0;

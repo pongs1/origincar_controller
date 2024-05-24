@@ -1,6 +1,8 @@
 #include "MPU6050.h"
 #include "I2C.h"
 #include "usart.h"
+#include "FreeRTOS.h"
+#include "task.h"
 
 #define PRINT_ACCEL     (0x01)
 #define PRINT_GYRO      (0x02)
@@ -12,15 +14,16 @@
 #define DEFAULT_MPU_HZ  (200)
 #define FLASH_SIZE      (512)
 #define FLASH_MEM_START ((void*)0x1800)
-#define q30  1073741824.0f
+// #define q30  1073741824.0f
 short gyro[3], accel[3], sensors;
 //零点漂移计数
 int Deviation_Count;
 // Gyro static error, raw data
 //陀螺仪静差，原始数据
 short Deviation_gyro[3],Original_gyro[3];  
-short Deviation_accel[3],Original_accel[3]; 
-float q0=1.0f,q1=0.0f,q2=0.0f,q3=0.0f;
+short Deviation_accel[3],Original_accel[3];
+float yaw;
+// float q0=1.0f,q1=0.0f,q2=0.0f,q3=0.0f;
 //static signed char gyro_orientation[9] = {-1, 0, 0,
 //                                           0,-1, 0,
 //                                           0, 0, 1};
@@ -66,7 +69,8 @@ void MPU6050_task(void *pvParameters)
 
      MPU_Get_Gyroscope(); //得到陀螺仪数据
      MPU_Get_Accelscope(); //获得加速度计值(原始值)
-    }
+	 MPU6050_DMP_Get_Data(&yaw);
+	}
 }  
 
 //static  unsigned short inv_orientation_matrix_to_scalar(
@@ -528,4 +532,15 @@ void MPU_Get_Accelscope(void)
 		}
 }
 
+void get_ms(unsigned long *time)
+{
+	// 获取自系统启动以来的时钟滴答数
+	TickType_t tickCount = xTaskGetTickCount();
+
+	// 将时钟滴答数转换为以毫秒为单位的时间戳
+	unsigned long timestamp = (tickCount * 1000) / configTICK_RATE_HZ;
+
+	// 将时间戳赋值给传入的指针参数
+	*time = timestamp;
+}
 //------------------End of File----------------------------

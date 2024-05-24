@@ -185,12 +185,14 @@ void systemInit(void)
   //MPU6050  is initialized to read the vehicle's three-axis attitude, 
 	//three-axis angular velocity and three-axis acceleration information
   //MPU6050 初始化，用于读取小车三轴姿态、三轴角速度、三轴加速度信息
-   MPU6050_initialize();        		
-	
-	//Initialize the hardware interface to the PS2 controller
-	//初始化与PS2手柄连接的硬件接口
+	mpu_init;
+	MPU6050_DMP_Init;
+	// MPU6050_initialize();
+
+	// Initialize the hardware interface to the PS2 controller
+	// 初始化与PS2手柄连接的硬件接口
 	PS2_Init();
-	
+
 	//PS2 gamepad configuration is initialized and configured in analog mode
   //PS2手柄配置初始化,配置为模拟量模式	
 	PS2_SetInit();		 							

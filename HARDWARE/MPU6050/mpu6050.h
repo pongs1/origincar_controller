@@ -381,5 +381,6 @@ unsigned char MPU6050_Set_LPF(u16 lpf);
 unsigned char MPU6050_Set_Rate(u16 rate);
 void MPU_Get_Gyroscope(void);
 void MPU_Get_Accelscope(void);
+void get_ms(unsigned long *time);
 
 #endif
