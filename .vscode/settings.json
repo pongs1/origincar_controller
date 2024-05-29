@@ -14,6 +14,7 @@
         "show.h": "c",
         "oled.h": "c",
         "freertosconfig.h": "c",
-        "can.h": "c"
+        "can.h": "c",
+        "LED.C": "cpp"
     }
 }

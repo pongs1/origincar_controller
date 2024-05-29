@@ -1,6 +1,6 @@
 /*
  * @Date: 2024-05-07 23:01:19
- * @LastEditTime: 2024-05-07 23:01:19
+ * @LastEditTime: 2024-05-28 22:39:59
  * @Objc:
  */
 #include "system.h"
@@ -42,7 +42,7 @@ void start_task(void *pvParameters)
 	xTaskCreate(MPU6050_task, "MPU6050_task", MPU6050_STK_SIZE, NULL, MPU6050_TASK_PRIO, NULL); // IMU data read task //IMU数据读取任务
 	xTaskCreate(show_task, "show_task", SHOW_STK_SIZE, NULL, SHOW_TASK_PRIO, NULL);				// The OLED display displays tasks //OLED显示屏显示任务
 	xTaskCreate(led_task, "led_task", LED_STK_SIZE, NULL, LED_TASK_PRIO, NULL);					// LED light flashing task //LED灯闪烁任务
-	xTaskCreate(pstwo_task, "PSTWO_task", PS2_STK_SIZE, NULL, PS2_TASK_PRIO, NULL);				// Read the PS2 controller task //读取PS2手柄任务
+	// xTaskCreate(pstwo_task, "PSTWO_task", PS2_STK_SIZE, NULL, PS2_TASK_PRIO, NULL);				// Read the PS2 controller task //读取PS2手柄任务
 	xTaskCreate(data_task, "DATA_task", DATA_STK_SIZE, NULL, DATA_TASK_PRIO, NULL);				// Usartx3, Usartx1 and CAN send data task //串口3、串口1、CAN发送数据任务
 
 	vTaskDelete(StartTask_Handler); // Delete the start task //删除开始任务

@@ -60,7 +60,7 @@ float Omni_turn_radiaus;
 //PS2 controller, Bluetooth APP, aircraft model controller, CAN communication, serial port 1, serial port 5 communication control flag bit.
 //These 6 flag bits are all 0 by default, representing the serial port 3 control mode
 //PS2手柄、蓝牙APP、航模手柄、CAN通信、串口1、串口5通信控制标志位。这6个标志位默认都为0，代表串口3控制模式
-u8 PS2_ON_Flag=0, APP_ON_Flag=0, Remote_ON_Flag=0, CAN_ON_Flag=0, Usart1_ON_Flag, Usart5_ON_Flag; 
+u8 PS2_ON_Flag=0, APP_ON_Flag=0, Remote_ON_Flag=0, CAN_ON_Flag=0, Usart1_ON_Flag = 0, Usart5_ON_Flag = 0; 
 
 //Bluetooth remote control associated flag bits
 //蓝牙遥控相关的标志位
@@ -116,7 +116,7 @@ void systemInit(void)
 	//Serial port 1 initialization, communication baud rate 115200, 
 	//can be used to communicate with ROS terminal
 	//串口1初始化，通信波特率115200，可用于与ROS端通信
-	uart1_init(115200);	  
+	// uart1_init(115200);	  
 	
 	//Serial port 2 initialization, communication baud rate 9600, 
 	//used to communicate with Bluetooth APP terminal
@@ -131,7 +131,7 @@ void systemInit(void)
 	//Serial port 5 initialization, communication baud rate 115200, 
 	//can be used to communicate with ROS terminal
 	//串口5初始化，通信波特率115200，可用于与ROS端通信
-	uart5_init(115200);
+	// uart5_init(115200);
 
 	//ADC pin initialization, used to read the battery voltage and potentiometer gear, 
 	//potentiometer gear determines the car after the boot of the car model
@@ -141,25 +141,26 @@ void systemInit(void)
 	
 	//Initialize the CAN communication interface
   //CAN通信接口初始化
-	CAN1_Mode_Init(1,7,6,3,0); 
+	// CAN1_Mode_Init(1,7,6,3,0); 
 	
   //According to the tap position of the potentiometer, determine which type of car needs to be matched, 
   //and then initialize the corresponding parameters	
   //根据电位器的档位判断需要适配的是哪一种型号的小车，然后进行对应的参数初始化	
-	Robot_Select();                 
-	
-	 //Encoder A is initialized to read the real time speed of motor C  
-  //编码器A初始化，用于读取电机C的实时速度	
-	 Encoder_Init_TIM2();
+	// Robot_Select();
+	Car_Mode = Akm_Car;
+	Robot_Init(Akm_wheelspacing, Akm_axlespacing, 0, HALL_30F, Hall_13, Black_WheelDiameter);
+	// Encoder A is initialized to read the real time speed of motor C
+	// 编码器A初始化，用于读取电机a的实时速度
+	Encoder_Init_TIM2();
 	//Encoder B is initialized to read the real time speed of motor D
-  //编码器B初始化，用于读取电机D的实时速度	
+  //编码器B初始化，用于读取电机b的实时速度	
 	  Encoder_Init_TIM3();   
 	//Encoder C is initialized to read the real time speed of motor B
   //编码器C初始化，用于读取电机B的实时速度	
-	  Encoder_Init_TIM4(); 
+	//   Encoder_Init_TIM4(); 
 	//Encoder D is initialized to read the real time speed of motor A
 	//编码器D初始化，用于读取电机A的实时速度
-		Encoder_Init_TIM5(); 
+		// Encoder_Init_TIM5(); 
 	
 	//定时器12用作舵机的PWM接口
 		TIM12_SERVO_Init(9999,84-1);  //APB1的时钟频率为84M , 频率=84M/((9999+1)*(83+1))=100Hz
@@ -185,15 +186,17 @@ void systemInit(void)
   //MPU6050  is initialized to read the vehicle's three-axis attitude, 
 	//three-axis angular velocity and three-axis acceleration information
   //MPU6050 初始化，用于读取小车三轴姿态、三轴角速度、三轴加速度信息
-	mpu_init;
-	MPU6050_DMP_Init;
+	
+	// mpu_init();
+	// MPU6050_DMP_Init();
+
 	MPU6050_initialize();
 
 	// Initialize the hardware interface to the PS2 controller
 	// 初始化与PS2手柄连接的硬件接口
-	PS2_Init();
+	// PS2_Init();
 
 	//PS2 gamepad configuration is initialized and configured in analog mode
   //PS2手柄配置初始化,配置为模拟量模式	
-	PS2_SetInit();		 							
+	// PS2_SetInit();		 							
 }

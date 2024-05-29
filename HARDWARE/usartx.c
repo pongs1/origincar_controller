@@ -18,15 +18,15 @@ void data_task(void *pvParameters)
    while(1)
     {	
 			//The task is run at 20hz
-			//此任务以20Hz的频率运行
-			vTaskDelayUntil(&lastWakeTime, F2T(RATE_20_HZ));
+			//此任务以50Hz的频率运行
+			vTaskDelayUntil(&lastWakeTime, F2T(RATE_50_HZ));
 			//Assign the data to be sent
 			//对要进行发送的数据进行赋值
 			data_transition(); 
 			USART1_SEND();     //Serial port 1 sends data //串口1发送数据
 			USART3_SEND();     //Serial port 3 (ROS) sends data  //串口3(ROS)发送数据
 			USART5_SEND();		 //Serial port 5 sends data //串口5发送数据
-			CAN_SEND();        //CAN send data //CAN发送数据	
+			// CAN_SEND();        //CAN send data //CAN发送数据	
 		}
 }
 /**************************************************************************
@@ -65,10 +65,10 @@ void data_transition(void)
 			Send_Data.Sensor_Str.Z_speed = ((MOTOR_B.Encoder-MOTOR_A.Encoder)/Wheel_spacing)*1000;
 		  break; 
 		
-		case Diff_Car: 
-			Send_Data.Sensor_Str.X_speed = ((MOTOR_A.Encoder+MOTOR_B.Encoder)/2)*1000; 
-			Send_Data.Sensor_Str.Y_speed = 0;
-			Send_Data.Sensor_Str.Z_speed = ((MOTOR_B.Encoder-MOTOR_A.Encoder)/Wheel_spacing)*1000;
+		case Diff_Car:
+			Send_Data.Sensor_Str.X_speed = MOTOR_A.Encoder * 1000;
+			Send_Data.Sensor_Str.Y_speed = MOTOR_B.Encoder * 1000;
+			Send_Data.Sensor_Str.Z_speed = ;
 			break; 
 		
 	}
@@ -639,7 +639,7 @@ int USART3_IRQHandler(void)
 	if(USART_GetITStatus(USART3, USART_IT_RXNE) != RESET) //Check if data is received //判断是否接收到数据
 	{
 		Usart_Receive = USART_ReceiveData(USART3);//Read the data //读取数据
-		if(Time_count<CONTROL_DELAY)
+		if(Time_count<300)//每100是1秒
 			// Data is not processed until 10 seconds after startup
 		  //开机10秒前不处理数据
 		  return 0;	
@@ -663,33 +663,26 @@ int USART3_IRQHandler(void)
 					//Data exclusionary or bit check calculation, mode 0 is sent data check
 					//数据异或位校验计算，模式0是发送数据校验
 					if(Receive_Data.buffer[9] ==Check_Sum(9,0))	 
-				  {	
+				   {	
 						float Vz;						
 						//All modes flag position 0, USART3 control mode
-            //所有模式标志位置0，为Usart3控制模式						
-						PS2_ON_Flag=0;
+            			//所有模式标志位置0，为Usart3控制模式						
 						Remote_ON_Flag=0;
 						APP_ON_Flag=0;
-						CAN_ON_Flag=0;
-						Usart1_ON_Flag=0;
-						Usart5_ON_Flag=0;
-						command_lost_count=0; //CAN/串口控制命令丢失计数清零
 
-						//Calculate the target speed of three axis from serial data, unit m/s
-						//从串口数据求三轴目标速度， 单位m/s
-						Move_X=XYZ_Target_Speed_transition(Receive_Data.buffer[3],Receive_Data.buffer[4]);
+						Car_Mode = Receive_Data.buffer[1];//阿克曼是2，差速是3
+
+						// Calculate the target speed of three axis from serial data, unit m/s
+						// 从串口数据求三轴目标速度， 单位m/s
+						Move_X = XYZ_Target_Speed_transition(Receive_Data.buffer[3], Receive_Data.buffer[4]);
 						Move_Y=XYZ_Target_Speed_transition(Receive_Data.buffer[5],Receive_Data.buffer[6]);
 						Vz    =XYZ_Target_Speed_transition(Receive_Data.buffer[7],Receive_Data.buffer[8]);
 						if(Car_Mode==Akm_Car)
 						{
 							Move_Z=Vz_to_Akm_Angle(Move_X, Vz);
-						}
-						else
-						{
-							Move_Z=XYZ_Target_Speed_transition(Receive_Data.buffer[7],Receive_Data.buffer[8]);
-						}				  }
-
-			}
+						}			  
+					}
+				}
 		}
 	} 
   return 0;	
@@ -799,7 +792,7 @@ float Vz_to_Akm_Angle(float Vx, float Vz)
 			else	
 				Vz=-float_abs(Vx)/(Min_Turn_Radius);	
 		}		
-		R=Vx/Vz;
+		R=Vx/Vz;//vx是当前轴线前进速度，vz是角速度
 		//AngleL=atan(Axle_spacing/(R-0.5*Wheel_spacing));
 		AngleR=atan(Axle_spacing/(R+0.5f*Wheel_spacing));
 	}

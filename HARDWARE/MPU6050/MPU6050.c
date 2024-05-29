@@ -57,7 +57,7 @@ void MPU6050_task(void *pvParameters)
     {	
 			//This task runs at 100Hz
 			//此任务以100Hz的频率运行
-			vTaskDelayUntil(&lastWakeTime, F2T(RATE_100_HZ));	
+			vTaskDelayUntil(&lastWakeTime, F2T(30));	
 		
 			//Read the gyroscope zero before starting
       //开机前，读取陀螺仪零点			
@@ -70,7 +70,6 @@ void MPU6050_task(void *pvParameters)
 
      MPU_Get_Gyroscope(); //得到陀螺仪数据
      MPU_Get_Accelscope(); //获得加速度计值(原始值)
-	 MPU6050_DMP_Get_Data(&yaw);
 	}
 }  
 
